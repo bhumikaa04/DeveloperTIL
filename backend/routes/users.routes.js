@@ -9,7 +9,7 @@ const User = require('../models/user');
 const generateToken = (user) => {
   return jwt.sign(
     { id: user._id, userId: user.userId, role: user.role },
-    process.env.JWT_SECRET || 'fallback_secret',
+    process.env.JWT_SECRET,
     { expiresIn: '7d' }
   );
 };
@@ -65,7 +65,6 @@ userRouter.post('/register' , async(req, res) => {
         });
     }
 })
-
 
 userRouter.post('/login', async(req, res) =>{
     try{
@@ -145,6 +144,7 @@ userRouter.get('/:userId' ,authenticate,  async(req, res) => {
         })
     }
 })
+
 
 
 //delete a user

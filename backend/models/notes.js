@@ -43,6 +43,7 @@ noteSchema.pre('save' , function(next){
     if(this.isModified('content') && !this.isNew){
         this.version += 1; 
     }
+    next(); 
 }) ; 
 
 const Notes = mongoose.model('Notes' , noteSchema); 

@@ -13,7 +13,10 @@
     "@tailwindcss/vite": "^4.3.3",
     "axios": "^1.19.0",
     "react": "^19.2.8",
-    "react-dom": "^19.2.8"
+    "react-calendar-heatmap": "^1.10.0",
+    "react-dom": "^19.2.8",
+    "react-router-dom": "^7.18.2",
+    "react-tooltip": "^6.0.8"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

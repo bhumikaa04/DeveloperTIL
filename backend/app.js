@@ -1,14 +1,13 @@
+const dotenv = require('dotenv');
+dotenv.config(); 
 const express = require('express'); 
 const mongoose = require('mongoose'); 
-const dotenv = require('dotenv');
 const cors = require('cors'); 
 const { timeStamp } = require('node:console'); 
 const noteRouter = require('./routes/notes.routes'); 
 const userRouter = require('./routes/users.routes'); 
 
 const app = express();
-
-dotenv.config(); 
 //middleware 
 app.use(cors()); 
 app.use(express.json()); 

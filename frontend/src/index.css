@@ -1,1 +1,20 @@
 @import "tailwindcss";
+
+/* Target react-calendar-heatmap SVG rects using Tailwind classes */
+.custom-heatmap .react-calendar-heatmap rect {
+  rx: 2px; /* Slight rounded corners for tiles */
+  ry: 2px;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.custom-heatmap .react-calendar-heatmap rect:hover {
+  stroke: #10b981; /* Tailwind emerald-500 border on hover */
+  stroke-width: 1px;
+}
+
+/* Hide default text stroke or tweak text style */
+.custom-heatmap .react-calendar-heatmap text {
+  font-size: 9px;
+  fill: #9ca3af; /* Tailwind gray-400 */
+}

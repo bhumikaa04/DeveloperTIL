@@ -1,7 +1,8 @@
 const express = require('express'); 
 const noteRouter = express.Router(); 
-
-const Notes = require('../models/notes')
+const {authenticate} = require('../middlewares/auth'); 
+const mongoose = require('mongoose'); 
+const Notes = require('../models/notes'); 
 
 noteRouter.get('/', async (req, res) => {
     //we will get the userId from the frontend and then get all the notes linked to that specific id 
@@ -30,6 +31,71 @@ noteRouter.get('/', async (req, res) => {
         });
     }
 }); 
+
+//get the heatmap 
+noteRouter.get('/heatmap', authenticate, async (req, res) => {
+    console.log("heatmap point hit"); 
+    console.log('User from token:', req.user);
+    try {
+        const { userId, startDate, endDate } = req.query;
+
+        // Validate userId
+        if (!userId) {
+            return res.status(400).json({ message: 'userId is required' });
+        }
+
+        // Build date filter
+        const dateFilter = { 
+            userId: new mongoose.Types.ObjectId(userId) 
+        };
+
+        if (startDate && endDate) {
+            // Use the provided date range
+            dateFilter.createdAt = {
+                $gte: new Date(startDate),
+                $lte: new Date(endDate + 'T23:59:59.999Z')
+            };
+        } else {
+            // Default to last 30 days if no dates provided
+            const thirtyDaysAgo = new Date();
+            thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30);
+            dateFilter.createdAt = { $gte: thirtyDaysAgo };
+        }
+
+        console.log('Heatmap query:', { userId, startDate, endDate, dateFilter }); // Debug log
+
+        const heatmapData = await Notes.aggregate([
+            {
+                $match: dateFilter  // ← USE the dateFilter here!
+            },
+            {
+                $group: {
+                    _id: { $dateToString: { format: "%Y-%m-%d", date: "$createdAt" } },
+                    count: { $sum: 1 }
+                }
+            },
+            {
+                $project: {
+                    _id: 0,
+                    date: "$_id",
+                    count: 1
+                }
+            },
+            {
+                $sort: { date: 1 }  // Optional: sort by date
+            }
+        ]);
+
+        return res.json(heatmapData);
+
+    } catch (err) {
+        console.error('Heatmap error:', err);
+        return res.status(500).json({
+            message: 'Error generating the heatmap stats',
+            error: err.message
+        });
+    }
+});
 
 noteRouter.get('/:id' , async (req, res) => {
     try{

@@ -1,0 +1,170 @@
+/* ================================
+   DEVELOPERS TIL - HEATMAP
+   ================================ */
+
+.custom-heatmap {
+  width: 100%;
+  padding: 12px 4px 4px;
+}
+
+/* Make the SVG use the available width */
+.custom-heatmap svg {
+  width: 100%;
+  height: auto;
+  min-height: 180px;
+}
+
+/* -------------------------------
+   Heatmap cells
+   ------------------------------- */
+
+.custom-heatmap .heat-0 {
+  fill: #f1f5f9;
+}
+
+.custom-heatmap .heat-1 {
+  fill: #e0e7ff;
+}
+
+.custom-heatmap .heat-2 {
+  fill: #c7d2fe;
+}
+
+.custom-heatmap .heat-3 {
+  fill: #818cf8;
+}
+
+.custom-heatmap .heat-4 {
+  fill: #4f46e5;
+}
+
+.custom-heatmap .heat-5 {
+  fill: #312e81;
+}
+
+/* -------------------------------
+   Cell appearance
+   ------------------------------- */
+
+.custom-heatmap rect {
+  rx: 4px;
+  ry: 4px;
+  stroke: #ffffff;
+  stroke-width: 2px;
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease,
+    filter 0.15s ease;
+}
+
+/* Hover effect */
+.custom-heatmap rect:hover {
+  opacity: 0.85;
+  filter: brightness(0.95);
+  cursor: pointer;
+}
+
+/* -------------------------------
+   Weekday labels
+   ------------------------------- */
+
+.custom-heatmap text {
+  font-family:
+    Inter,
+    ui-sans-serif,
+    system-ui,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    sans-serif;
+}
+
+.custom-heatmap .react-calendar-heatmap-weekday-label {
+  fill: #94a3b8;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* -------------------------------
+   Month labels
+   ------------------------------- */
+
+.custom-heatmap .react-calendar-heatmap-month-label {
+  fill: #64748b;
+  font-size: 11px;
+  font-weight: 600;
+}
+
+/* -------------------------------
+   Legend
+   ------------------------------- */
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 6px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  color: #94a3b8;
+}
+
+.heatmap-legend-square {
+  width: 12px;
+  height: 12px;
+  border-radius: 3px;
+}
+
+.heatmap-legend-0 {
+  background: #f1f5f9;
+}
+
+.heatmap-legend-1 {
+  background: #e0e7ff;
+}
+
+.heatmap-legend-2 {
+  background: #c7d2fe;
+}
+
+.heatmap-legend-3 {
+  background: #818cf8;
+}
+
+.heatmap-legend-4 {
+  background: #4f46e5;
+}
+
+.heatmap-legend-5 {
+  background: #312e81;
+}
+
+/* -------------------------------
+   Empty state
+   ------------------------------- */
+
+.heatmap-empty {
+  padding: 36px 20px;
+  text-align: center;
+  border-radius: 14px;
+  background: linear-gradient(
+    135deg,
+    #f8fafc,
+    #eef2ff
+  );
+  color: #94a3b8;
+}
+
+/* -------------------------------
+   Responsive
+   ------------------------------- */
+
+@media (max-width: 640px) {
+  .custom-heatmap {
+    overflow-x: auto;
+  }
+
+  .custom-heatmap svg {
+    min-width: 500px;
+  }
+}
